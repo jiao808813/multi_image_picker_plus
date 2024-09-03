@@ -7,8 +7,7 @@ issue_tracker: https://github.com/cj123195/multi_image_picker_plus/issues
 documentation: https://github.com/cj123195/multi_image_picker_plus
 
 environment:
-  sdk: '>=3.2.3 <4.0.0'
-  flutter: '>=3.3.0'
+  sdk: '>=2.19.6 <4.0.0'
 
 dependencies:
   flutter:
@@ -18,7 +17,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
+  flutter_lints: ^2.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
