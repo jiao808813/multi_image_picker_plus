@@ -1,4 +1,4 @@
-group 'com.tianxin.multi_image_picker_plus'
+group 'com.iduopao.jollo.flutter_06'
 version '1.0-SNAPSHOT'
 
 buildscript {
@@ -14,10 +14,9 @@ buildscript {
     }
 }
 
-rootProject.allprojects {
+allprojects {
     repositories {
         google()
-        maven { url 'https://jitpack.io' }
         mavenCentral()
     }
 }
@@ -27,8 +26,6 @@ apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 33
-
-    namespace 'com.tianxin.plus.muilti_image_picker'
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

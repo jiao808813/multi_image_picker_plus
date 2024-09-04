@@ -19,11 +19,11 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   List<Asset> images = <Asset>[];
   String _error = 'No Error Dectected';
   bool _permissionReady = false;
-  AppLifecycleListener? _lifecycleListener;
+  // AppLifecycleListener? _lifecycleListener;
   static const List<Permission> _permissions = [
     Permission.storage,
     Permission.camera
@@ -55,30 +55,30 @@ class _MyAppState extends State<MyApp> {
 
     const AlbumSetting albumSetting = AlbumSetting(
       fetchResults: {
-        PHFetchResult(
-          type: PHAssetCollectionType.smartAlbum,
-          subtype: PHAssetCollectionSubtype.smartAlbumUserLibrary,
-        ),
-        PHFetchResult(
-          type: PHAssetCollectionType.smartAlbum,
-          subtype: PHAssetCollectionSubtype.smartAlbumFavorites,
-        ),
-        PHFetchResult(
-          type: PHAssetCollectionType.album,
-          subtype: PHAssetCollectionSubtype.albumRegular,
-        ),
-        PHFetchResult(
-          type: PHAssetCollectionType.smartAlbum,
-          subtype: PHAssetCollectionSubtype.smartAlbumSelfPortraits,
-        ),
-        PHFetchResult(
-          type: PHAssetCollectionType.smartAlbum,
-          subtype: PHAssetCollectionSubtype.smartAlbumPanoramas,
-        ),
-        PHFetchResult(
-          type: PHAssetCollectionType.smartAlbum,
-          subtype: PHAssetCollectionSubtype.smartAlbumVideos,
-        ),
+        // PHFetchResult(
+        //   type: PHAssetCollectionType.smartAlbum,
+        //   subtype: PHAssetCollectionSubtype.smartAlbumUserLibrary,
+        // ),
+        // PHFetchResult(
+        //   type: PHAssetCollectionType.smartAlbum,
+        //   subtype: PHAssetCollectionSubtype.smartAlbumFavorites,
+        // ),
+        // PHFetchResult(
+        //   type: PHAssetCollectionType.album,
+        //   subtype: PHAssetCollectionSubtype.albumRegular,
+        // ),
+        // PHFetchResult(
+        //   type: PHAssetCollectionType.smartAlbum,
+        //   subtype: PHAssetCollectionSubtype.smartAlbumSelfPortraits,
+        // ),
+        // PHFetchResult(
+        //   type: PHAssetCollectionType.smartAlbum,
+        //   subtype: PHAssetCollectionSubtype.smartAlbumPanoramas,
+        // ),
+        // PHFetchResult(
+        //   type: PHAssetCollectionType.smartAlbum,
+        //   subtype: PHAssetCollectionSubtype.smartAlbumVideos,
+        // ),
       },
     );
     const SelectionSetting selectionSetting = SelectionSetting(
@@ -157,16 +157,33 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     _requestPermissions();
-    _lifecycleListener = AppLifecycleListener(
-      onResume: _checkPermissions,
-    );
+    // _lifecycleListener = AppLifecycleListener(
+    //   onResume: _checkPermissions,
+    // );
+    WidgetsBinding.instance.addObserver(this);
     super.initState();
   }
 
   @override
   void dispose() {
-    _lifecycleListener?.dispose();
+    // _lifecycleListener?.dispose();
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
+  }
+
+    @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.resumed:
+        print('应用恢复');
+        _checkPermissions;
+        break;
+      case AppLifecycleState.paused:
+        print('应用暂停');
+        break;
+      default:
+        break;
+    }
   }
 
   Widget _buildGridView() {
